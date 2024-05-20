@@ -5,14 +5,15 @@ import { ClienteRepositoryORM } from '../infrastructure/repositories/cliente-orm
 import { Cliente } from '../domain/entities/cliente.entity';
 import { ClienteService } from '../infrastructure/services/cliente.service';
 
+/**
+ * @class ClienteModule
+ * @description Módulo de Cliente
+ */
 @Module
 ({
   imports: [TypeOrmModule.forFeature([Cliente])],
   controllers: [ClienteController],
-
-  providers: [ClienteRepositoryORM,
-    ClienteService],
-
+  providers: [ClienteRepositoryORM, ClienteService],
 
 })
 

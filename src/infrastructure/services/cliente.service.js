@@ -1,6 +1,12 @@
 import { Dependencies, Injectable } from '@nestjs/common';
 import { ClienteRepositoryORM } from '../repositories/cliente-orm.repository';
 
+
+/**
+ * @class ClienteService
+ * @description Serviço de Cliente
+ * @method todos - Retorna todos os clientes
+ */
 @Injectable()
 @Dependencies(ClienteRepositoryORM)
 

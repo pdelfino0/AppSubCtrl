@@ -2,6 +2,11 @@ import { Dependencies, Injectable } from '@nestjs/common';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Cliente } from '../../domain/entities/cliente.entity';
 
+/**
+ * @class ClienteRepositoryORM
+ * @description Repositório de Cliente usando ORM
+ * @method todos - Retorna todos os clientes
+ */
 @Injectable()
 @Dependencies(getRepositoryToken(Cliente))
 export class ClienteRepositoryORM {
