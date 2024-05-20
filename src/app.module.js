@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Cliente } from './domain/entities/Cliente.entity';
-import { ClienteRepositoryORM } from './infrastructure/repositories/ClienteORM.repository';
-import { ClienteController } from './infrastructure/controller/cliente.controller';
+import { ClienteModule } from './modules/cliente.module';
 
 @Module({
   imports: [
@@ -16,9 +14,10 @@ import { ClienteController } from './infrastructure/controller/cliente.controlle
       synchronize: true,
       autoLoadEntities: true,
     }),
-    TypeOrmModule.forFeature([Cliente]),
+    ClienteModule,
   ],
-  controllers: [ClienteController],
-  providers: [ClienteRepositoryORM],
+
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

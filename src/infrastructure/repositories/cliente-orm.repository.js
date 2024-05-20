@@ -1,6 +1,6 @@
 import { Dependencies, Injectable } from '@nestjs/common';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Cliente } from '../../domain/entities/Cliente.entity';
+import { Cliente } from '../../domain/entities/cliente.entity';
 
 @Injectable()
 @Dependencies(getRepositoryToken(Cliente))
@@ -17,3 +17,4 @@ export class ClienteRepositoryORM {
   }
 }
 
+module.exports = { ClienteRepositoryORM };

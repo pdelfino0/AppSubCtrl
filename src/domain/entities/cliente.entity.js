@@ -14,3 +14,5 @@ export class Cliente {
     this.email = email;
   }
 }
+
+module.exports = { Cliente };
