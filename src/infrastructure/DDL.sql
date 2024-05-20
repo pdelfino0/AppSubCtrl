@@ -17,3 +17,9 @@ CREATE TABLE IF NOT EXISTS Aplicativo (
     nome VARCHAR(100),
     custoMensal DECIMAL(10, 2)
 );
+
+CREATE TABLE IF NOT EXISTS Aplicativo(
+    codigo INT PRIMARY KEY,
+    codCli INT FOREIGN KEY REFERENCES ClienteEntity(codigo),
+    codApp INT FOREIGN KEY REFERENCES Aplicativo(codigo),
+    custoMensal DECIMAL(10, 2) );

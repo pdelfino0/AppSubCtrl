@@ -13,6 +13,10 @@ export class AplicativoService {
     this.aplicativoRepo = aplicativoRepositoryORM;
   }
 
+  /**
+   * @method todos
+   * @returns {Promise<Aplicativo[]>}
+   */
   async todos() {
     return this.aplicativoRepo.todos();
   }

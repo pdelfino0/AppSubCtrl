@@ -1,6 +1,7 @@
 import { Controller, Dependencies, Get } from '@nestjs/common';
 import { AplicativoService } from '../services/aplicativo.service';
 
+
 /**
  * @class AplicativoController
  * @description Controller de Aplicativo
@@ -14,6 +15,10 @@ export class AplicativoController {
     this.aplicativoService = AplicativoRepository;
   }
 
+ /**
+  * @method getTodos
+  * @returns {Promise<Aplicativo[]>}
+  */
   @Get()
   getTodos() {
     return this.aplicativoService.todos();

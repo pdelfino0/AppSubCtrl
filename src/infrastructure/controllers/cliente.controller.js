@@ -12,6 +12,11 @@ export class ClienteController {
   constructor(clienteService) {
     this.clienteService = clienteService;
   }
+
+  /**
+   *
+   * @returns {Promise<Cliente[]>}
+   */
   @Get()
   getTodos() {
     return this.clienteService.todos();

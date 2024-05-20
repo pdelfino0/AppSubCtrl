@@ -5,6 +5,10 @@ import { AplicativoService } from '../services/aplicativo.service';
 import { AplicativoController } from '../controllers/aplicativo.controller';
 import { Aplicativo } from '../../domain/entities/aplicativo.entity';
 
+/**
+ * @class AplicativoModule
+ * @description Módulo de Aplicativo
+ */
 
 /**
  * @class AplicativoModule
