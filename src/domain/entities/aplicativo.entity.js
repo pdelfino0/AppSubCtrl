@@ -1,8 +1,15 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity('Aplicativo')
-class Aplicativo {
 
+/**
+ * @class Aplicativo
+ * @description Entidade Aplicativo
+ * @property {int} codigo Código do aplicativo
+ * @property {string} nome Nome do aplicativo
+ * @property {float} custoMensal Custo mensal do aplicativo
+ */
+@Entity('Aplicativo')
+export class Aplicativo {
   @PrimaryColumn('int')
   codigo;
   @Column('varchar')
@@ -15,7 +22,6 @@ class Aplicativo {
     this.nome = nome;
     this.custoMensal = custoMensal;
   }
-
 
 }
 

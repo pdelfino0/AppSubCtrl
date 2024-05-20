@@ -6,7 +6,6 @@ import { Column, Entity, PrimaryColumn } from 'typeorm';
  * @property {number} codigo - Código do cliente
  * @property {string} nome - Nome do cliente
  * @property {string} email - E-mail do cliente
-
  */
 @Entity('Cliente')
 export class Cliente {
