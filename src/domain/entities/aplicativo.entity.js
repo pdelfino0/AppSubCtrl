@@ -1,11 +1,5 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-<<<<<<< Updated upstream
-=======
-@Entity('Aplicativo')
-export class Aplicativo {
->>>>>>> Stashed changes
-
 /**
  * @class Aplicativo
  * @description Entidade Aplicativo

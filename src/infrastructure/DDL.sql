@@ -18,8 +18,11 @@ CREATE TABLE IF NOT EXISTS Aplicativo (
     custoMensal DECIMAL(10, 2)
 );
 
-CREATE TABLE IF NOT EXISTS Aplicativo(
-    codigo INT PRIMARY KEY,
-    codCli INT FOREIGN KEY REFERENCES ClienteEntity(codigo),
-    codApp INT FOREIGN KEY REFERENCES Aplicativo(codigo),
-    custoMensal DECIMAL(10, 2) );
+CREATE TABLE Assinatura (
+  codigo INT PRIMARY KEY,
+  appCod INT NOT NULL,
+  cliCod INT NOT NULL,
+  dataPagamento DATE NOT NULL,
+  CONSTRAINT FK_aplicativo FOREIGN KEY (appCod) REFERENCES Aplicativo(codigo),
+  CONSTRAINT FK_cliente FOREIGN KEY (cliCod) REFERENCES Cliente(codigo)
+);

@@ -5,22 +5,22 @@ import { AplicativoService } from '../services/aplicativo.service';
 /**
  * @class AplicativoController
  * @description Controller de Aplicativo
- * @method getTodos - Retorna todos os aplicativos
+ * @method getTodosAplicativos - Retorna todos os aplicativos
  */
 @Controller('servcad/aplicativos')
 @Dependencies(AplicativoService)
 export class AplicativoController {
 
-  constructor(AplicativoRepository) {
-    this.aplicativoService = AplicativoRepository;
+  constructor(aplicativoService) {
+    this.aplicativoService = aplicativoService;
   }
 
  /**
-  * @method getTodos
+  * @method getTodosAplicativos
   * @returns {Promise<Aplicativo[]>}
   */
   @Get()
-  getTodos() {
+ getTodosAplicativos() {
     return this.aplicativoService.todos();
   }
 }

@@ -4,7 +4,6 @@ import { ClienteService } from '../services/cliente.service';
 /**
  * @class ClienteController
  * @description Controller de Cliente
- * @method getTodos - Retorna todos os clientes
  */
 @Controller('servcad/clientes')
 @Dependencies(ClienteService)
@@ -16,9 +15,10 @@ export class ClienteController {
   /**
    *
    * @returns {Promise<Cliente[]>}
+   * @method getTodosClientes
    */
   @Get()
-  getTodos() {
+  getTodosClientes() {
     return this.clienteService.todos();
   }
 }

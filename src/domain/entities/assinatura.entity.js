@@ -8,11 +8,11 @@ export class Assinatura {
   @PrimaryGeneratedColumn()
   codigo;
 
-  @ManyToOne(() => Aplicativo, (aplicativo) => aplicativo.codApp, { eager: true })
-  codApp;
+  @ManyToOne(() => Aplicativo, { eager: true, nullable: false })
+  aplicativo;
 
-  @ManyToOne(() => Cliente, (cliente) => cliente.codCli, { eager: true })
-  codCli;
+  @ManyToOne(() => Cliente, { eager: true, nullable: false })
+  cliente;
 
   @Column('date')
   dataPagamento;

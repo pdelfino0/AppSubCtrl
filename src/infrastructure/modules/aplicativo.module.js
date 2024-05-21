@@ -7,13 +7,9 @@ import { Aplicativo } from '../../domain/entities/aplicativo.entity';
 
 /**
  * @class AplicativoModule
- * @description Módulo de Aplicativo
+ * @description Módulo responsável por prover a funcionalidade de aplicativo.
  */
 
-/**
- * @class AplicativoModule
- * @description Módulo de Aplicativo
- */
 
 @Module
 ({

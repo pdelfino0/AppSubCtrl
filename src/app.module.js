@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ClienteModule } from './infrastructure/modules/cliente.module';
 import { AplicativoModule } from './infrastructure/modules/aplicativo.module';
+import { AssinaturaModule } from './infrastructure/modules/assinatura.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AplicativoModule } from './infrastructure/modules/aplicativo.module';
       autoLoadEntities: true,
     }),
     ClienteModule,
+    AssinaturaModule,
     AplicativoModule,
   ],
 
