@@ -1,4 +1,4 @@
-import { Controller, Dependencies, Get } from '@nestjs/common';
+import { Bind, Body, Controller, Dependencies, Get, Post } from '@nestjs/common';
 import { AssinaturaService } from '../services/assinatura.service';
 
 
@@ -21,8 +21,15 @@ export class AssinaturaController {
    */
   @Get()
   getTodasAssinaturas() {
-    return this.assinaturaService.todos();
+    return this.assinaturaService.todasAssinaturas();
   }
+
+
+  @Post()
+  @Bind(Body())
+  createAssinatura(createAssinaturaDto) {
+    return this.assinaturaService.criarAssinatura(createAssinaturaDto);
 }
 
+}
 module.exports = { AssinaturaController };

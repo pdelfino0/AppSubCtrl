@@ -16,4 +16,11 @@ export class Assinatura {
   @Column('date') inicioVigencia;
   @Column('date') fimVigencia;
 
+  constructor(aplicativo, cliente, inicioVigencia, fimVigencia) {
+    this.aplicativo = aplicativo;
+    this.cliente = cliente;
+    this.inicioVigencia = inicioVigencia;
+    this.fimVigencia = fimVigencia;
+  }
+
 }
