@@ -5,8 +5,7 @@ import { Cliente } from './cliente.entity';
 
 @Entity('Assinatura')
 export class Assinatura {
-  @PrimaryGeneratedColumn()
-  codigo;
+  @PrimaryGeneratedColumn() codigo;
 
   @ManyToOne(() => Aplicativo, { eager: true, nullable: false })
   aplicativo;
@@ -14,7 +13,7 @@ export class Assinatura {
   @ManyToOne(() => Cliente, { eager: true, nullable: false })
   cliente;
 
-  @Column('date')
-  dataPagamento;
+  @Column('date') inicioVigencia;
+  @Column('date') fimVigencia;
 
 }
