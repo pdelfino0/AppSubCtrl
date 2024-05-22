@@ -26,8 +26,8 @@ export class AplicativoController {
 
   /**
    * @method atualizarCustoMensalAplicativo
-   * @param { updateCustoMensalAplicativoDto } updateCustoMensalAplicativoDto
-   * @param param
+   * @param {updateCustoMensalAplicativoDto} updateCustoMensalAplicativoDto
+   * @param {Param} param
    * @returns {AplicativoResponseDto}
    */
   @Patch('/:idAplicativo')

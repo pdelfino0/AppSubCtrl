@@ -25,7 +25,7 @@ export class AplicativoService {
   /**
    * @method atualizarCustoMensal
    * @param {UpdateCustoMensalAplicativoDto} updateCustoMensalAplicativoDto
-   * @param codigoAplicativo
+   * @param {string} codigoAplicativo
    * @returns {AplicativoResponseDto}
    */
   async atualizarCustoMensal(updateCustoMensalAplicativoDto, codigoAplicativo) {

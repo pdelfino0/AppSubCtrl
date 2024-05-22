@@ -29,7 +29,7 @@ export class AplicativoRepositoryORM {
   }
 
   /**
-   *
+   * @method atualizar
    * @returns {Promise<Aplicativo>}
    * @param {Aplicativo} aplicativo
    */

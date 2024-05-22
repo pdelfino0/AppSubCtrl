@@ -9,7 +9,7 @@
 export class AplicativoResponseDto {
 
   /**
-   * @param aplicativo
+   * @param { Aplicativo } aplicativo
    */
 
   constructor(aplicativo) {
