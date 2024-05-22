@@ -13,7 +13,7 @@ import { Aplicativo } from '../../domain/entities/aplicativo.entity';
 export class AplicativoRepositoryORM {
 
   constructor(aplicativos) {
-    this.aplicativoRepo = aplicativos;
+    this.aplicativos = aplicativos;
   }
 
   /**
@@ -21,6 +21,21 @@ export class AplicativoRepositoryORM {
    * @returns {Promise<Aplicativo[]>}
    */
   async todos() {
-    return this.aplicativoRepo.find();
+    return this.aplicativos.find();
+  }
+
+  /**
+   *
+   * @param custoMensal
+   * @param codigoAplicativo
+   * @returns {Promise<Aplicativo>}
+   */
+
+  async atualizar(custoMensal, codigoAplicativo) {
+    let ok = await this.aplicativos.createQueryBuilder().update(Aplicativo).set({ custoMensal: custoMensal }).where('codigo = :codigo', { codigo: codigoAplicativo }).execute();
+    if (ok.affected === 0) {
+      throw new Error('Aplicativo não encontrado');
+    }
+    return await this.aplicativos.findOne({ where: { codigo: codigoAplicativo } });
   }
 }

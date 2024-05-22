@@ -1,4 +1,4 @@
-import { Controller, Dependencies, Get } from '@nestjs/common';
+import { Bind, Body, Controller, Dependencies, Get, Param, Patch } from '@nestjs/common';
 import { AplicativoService } from '../services/aplicativo.service';
 
 
@@ -23,6 +23,23 @@ export class AplicativoController {
  getTodosAplicativos() {
     return this.aplicativoService.todos();
   }
+
+  /**
+   * @method atualizarCustoMensalAplicativo
+   * @param { updateCustoMensalAplicativoDto } updateCustoMensalAplicativoDto
+   * @param param
+   * @returns {AplicativoResponseDto}
+   */
+  @Patch('/:idAplicativo')
+  @Bind(Body(), Param())
+  atualizarCustoMensalAplicativo(
+    updateCustoMensalAplicativoDto,
+    param,
+  ) {
+    const codigoAplicativo = param.idAplicativo;
+    return this.aplicativoService.atualizarCustoMensal(updateCustoMensalAplicativoDto, codigoAplicativo);
+  }
+
 }
 
 module.exports = { AplicativoController };
