@@ -24,18 +24,20 @@ export class AplicativoRepositoryORM {
     return this.aplicativos.find();
   }
 
+  async findOneById(id) {
+    return this.aplicativos.findOne({ where: { codigo: id } });
+  }
+
   /**
    *
-   * @param custoMensal
-   * @param codigoAplicativo
    * @returns {Promise<Aplicativo>}
+   * @param {Aplicativo} aplicativo
    */
-
-  async atualizar(custoMensal, codigoAplicativo) {
-    let ok = await this.aplicativos.createQueryBuilder().update(Aplicativo).set({ custoMensal: custoMensal }).where('codigo = :codigo', { codigo: codigoAplicativo }).execute();
+  async atualizar(aplicativo) {
+    let ok = await this.aplicativos.createQueryBuilder().update(Aplicativo).set({ ...aplicativo }).where('codigo = :codigo', { codigo: aplicativo.codigo }).execute();
     if (ok.affected === 0) {
       throw new Error('Aplicativo não encontrado');
     }
-    return await this.aplicativos.findOne({ where: { codigo: codigoAplicativo } });
+    return await this.aplicativos.findOne({ where: { codigo: aplicativo.codigo } });
   }
 }

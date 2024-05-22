@@ -36,7 +36,7 @@ export class AplicativoController {
     updateCustoMensalAplicativoDto,
     param,
   ) {
-    const codigoAplicativo = param.idAplicativo;
+    const { idAplicativo: codigoAplicativo } = param;
     return this.aplicativoService.atualizarCustoMensal(updateCustoMensalAplicativoDto, codigoAplicativo);
   }
 

@@ -29,8 +29,9 @@ export class AplicativoService {
    * @returns {AplicativoResponseDto}
    */
   async atualizarCustoMensal(updateCustoMensalAplicativoDto, codigoAplicativo) {
-    const custoMensal = parseFloat(updateCustoMensalAplicativoDto.custoMensal).toFixed(2);
-    const aplicativoAtualizado = await this.aplicativoRepo.atualizar(custoMensal, codigoAplicativo);
+    const aplicativo = await this.aplicativoRepo.findOneById();
+    aplicativo.custoMensal = parseFloat(updateCustoMensalAplicativoDto.custoMensal).toFixed(2);
+    const aplicativoAtualizado = await this.aplicativoRepo.atualizar(aplicativo);
     return new AplicativoResponseDto(aplicativoAtualizado);
   }
 }
