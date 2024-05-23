@@ -24,6 +24,11 @@ export class AplicativoRepositoryORM {
     return this.aplicativos.find();
   }
 
+  /**
+   * @method findOne
+   * @param id
+   * @returns {Promise<Aplicativo>}
+   */
   async findOneById(id) {
     return this.aplicativos.findOne({ where: { codigo: id } });
   }

@@ -1,4 +1,4 @@
-import { Bind, Body, Controller, Dependencies, Get, Post } from '@nestjs/common';
+import { Bind, Body, Controller, Dependencies, Get, Param, Post } from '@nestjs/common';
 import { AssinaturaService } from '../services/assinatura.service';
 
 
@@ -24,6 +24,11 @@ export class AssinaturaController {
     return this.assinaturaService.todasAssinaturas();
   }
 
+  /**
+   * @method createAssinatura
+   * @param createAssinaturaDto
+   * @returns {Promise<Assinatura>|Promise<*>|*}
+   */
 
   @Post()
   @Bind(Body())
@@ -31,5 +36,18 @@ export class AssinaturaController {
     return this.assinaturaService.criarAssinatura(createAssinaturaDto);
 }
 
+
+  /**
+   * @method getAssinaturaByTipo
+   * @param {Param} param
+   * @returns {AssinaturaResponseDto} assinaturaResponseDto
+   */
+  @Get('/:tipo')
+  @Bind(Param())
+  async getAssinaturaByTipo(param) {
+    const { tipo } = param;
+    return this.assinaturaService.getAssinaturaByTipo(tipo);
+  }
 }
+
 module.exports = { AssinaturaController };
