@@ -7,7 +7,7 @@ import { AssinaturaService } from '../../services/assinatura.service';
  * @param {string} codigoCliente
  * @param {Date} inicioVigencia
  * @param {Date} fimVigencia
- * @param {string} tipo
+ * @param {string} status
  */
 export class AssinaturaResponseDto {
   constructor(assinatura) {
