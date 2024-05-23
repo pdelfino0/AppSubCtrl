@@ -12,6 +12,10 @@ import { AssinaturaResponseDto } from '../dto/responses/assinatura-response-dto'
 @Injectable()
 @Dependencies(AssinaturaRepositoryORM)
 export class AssinaturaService {
+
+  private PERIODO_GRATUITO = 7;
+  private EXTENSAO_VIGENCIA = 30;
+
   constructor(assinaturaRepositoryORM) {
     this.assinaturaRepository = assinaturaRepositoryORM;
   }
@@ -31,6 +35,7 @@ export class AssinaturaService {
    * @param createAssinaturaDto
    * @returns {Promise<*|Assinatura>}
    */
+  //TODO: Refatorar para criar assinaturas com vigência de 7 dias padrão.
   async criarAssinatura(createAssinaturaDto) {
     const inicioVigencia = new Date();
     const fimVigencia = new Date(inicioVigencia);
@@ -47,6 +52,8 @@ export class AssinaturaService {
     );
     return this.convertAssinaturaToResponseDto(await this.assinaturaRepository.criarAssinatura(assinatura));
   }
+
+  //TODO: Criar um método para extender a vigência de uma assinatura de 7 dias para 30 dias mediante pagamento.
 
 
   /**
