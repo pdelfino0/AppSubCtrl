@@ -16,8 +16,13 @@ export class AssinaturaService {
     this.assinaturaRepository = assinaturaRepositoryORM;
   }
 
+  /**
+   * @method todasAssinaturas
+   * @description Retorna todas as assinaturas
+   * @returns {AssinaturaResponseDto} assinaturaResponseDto
+   */
   async todasAssinaturas() {
-    return this.assinaturaRepository.todasAssinaturas();
+    return this.convertListAssinaturaToResponseDto(await this.assinaturaRepository.getTodasAssinaturas());
   }
 
   /**
@@ -54,10 +59,11 @@ export class AssinaturaService {
   async getAssinaturaByTipo(tipo) {
     const tipos = ['ATIVAS', 'CANCELADAS', 'TODAS'];
     if (!tipos.includes(tipo)) {
-      return { message: 'Tipo inválido' };
+      return {
+        message: 'Tipo inválido. Os valores aceitos são os seguintes: ' + tipos.join(', ') + '.',
+      };
     }
     if (tipo === 'TODAS') {
-      console.log(tipo);
       return this.convertListAssinaturaToResponseDto(await this.assinaturaRepository.getTodasAssinaturas());
 
     }
@@ -73,6 +79,12 @@ export class AssinaturaService {
     return assinaturas.map((assinatura) => this.convertAssinaturaToResponseDto(assinatura));
   }
 
+  /**
+   * @method convertAssinaturaToResponseDto
+   * @description Converte uma assinatura para DTO de resposta
+   * @param assinatura
+   * @returns {AssinaturaResponseDto}
+   */
   convertAssinaturaToResponseDto(assinatura) {
     return new AssinaturaResponseDto(assinatura);
   }
@@ -97,5 +109,18 @@ export class AssinaturaService {
   static getStatusAssinatura(fimVigencia) {
     return new Date(fimVigencia) < new Date() ? 'CANCELADA' : 'ATIVA';
   }
+
+  /**
+   *
+   * @method getAssinaturaByCodigoAplicativo
+   * @description Retorna todas as assinaturas por código de aplicativo
+   * @param {number} codigoAplicativo
+   * @returns {Promise<AssinaturaResponseDto[]>}
+   */
+
+  async getAssinaturaByCodigoAplicativo(codigoAplicativo) {
+    return this.convertListAssinaturaToResponseDto(await this.assinaturaRepository.getAssinaturaByCodigoAplicativo(codigoAplicativo));
+  }
 }
+
 module.exports = { AssinaturaService };

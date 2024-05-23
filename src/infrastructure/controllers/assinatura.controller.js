@@ -17,6 +17,7 @@ export class AssinaturaController {
 
   /**
    * @method getTodasAssinaturas
+   * @description Retorna todas as assinaturas
    * @returns {Promise<Aplicativo[]>}
    */
   @Get('/assinaturas')
@@ -26,10 +27,12 @@ export class AssinaturaController {
 
   /**
    * @method createAssinatura
+   * @description Cria uma nova assinatura
    * @param {CreateAssinaturaDto} createAssinaturaDto
    * @returns {AssinaturaResponseDto} assinaturaResponseDto
    *
    */
+
   @Post('/assinaturas')
   @Bind(Body())
   createAssinatura(createAssinaturaDto) {
@@ -39,6 +42,7 @@ export class AssinaturaController {
 
   /**
    * @method getAssinaturaByTipo
+   * @description Retorna todas as assinaturas por tipo
    * @param {Param} param
    * @returns {AssinaturaResponseDto} assinaturaResponseDto
    */
@@ -49,13 +53,35 @@ export class AssinaturaController {
     return this.assinaturaService.getAssinaturaByTipo(tipo);
   }
 
+  /**
+   *
+   * @method getAssinaturaByClienteCodigo
+   * @description Retorna assinaturas de um cliente pelo código dele.
+   * @param param
+   * @returns {AssinaturaResponseDto} assinaturaResponseDto
+   */
+
   @Get('/asscli/:codcli')
   @Bind(Param())
-  async getAssinaturaByCliente(param) {
+  async getAssinaturaByClienteCodigo(param) {
     const { codcli } = param;
-    console.log(codcli);
     return this.assinaturaService.getAssinaturaByCodigoCliente(codcli);
   }
+
+  /**
+   *
+   * @method getAssinaturaByCodigoAplicativo
+   * @param {Param} param
+   * @returns {AssinaturaResponseDto} assinaturaResponse
+   * @description
+   */
+  @Get('/assapp/:codapp')
+  @Bind(Param())
+  async getAssinaturaByCodigoAplicativo(param) {
+    const { codapp } = param;
+    return this.assinaturaService.getAssinaturaByCodigoAplicativo(codapp);
+  }
 }
+
 
 module.exports = { AssinaturaController };

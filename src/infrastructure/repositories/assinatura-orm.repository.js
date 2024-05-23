@@ -62,4 +62,13 @@ export class AssinaturaRepositoryORM {
   async getAssinaturaByCodigoCliente(codigoCliente) {
     return this.assinaturasRepository.find({ where: { cliente: { codigo: codigoCliente } } });
   }
+
+  /**
+   * @method getAssinaturaByCodigoAplicativo
+   * @param codigoAplicativo
+   * @returns {Promise<Assinatura[]>}
+   */
+  async getAssinaturaByCodigoAplicativo(codigoAplicativo) {
+    return this.assinaturasRepository.find({ where: { aplicativo: { codigo: codigoAplicativo } } });
+  }
 }
