@@ -7,7 +7,7 @@ import { AssinaturaService } from '../services/assinatura.service';
  * @description Controller de Aplicativo
  * @method getTodos - Retorna todos os aplicativos
  */
-@Controller('servcad/assinaturas')
+@Controller('servcad/')
 @Dependencies(AssinaturaService)
 export class AssinaturaController {
 
@@ -19,18 +19,18 @@ export class AssinaturaController {
    * @method getTodasAssinaturas
    * @returns {Promise<Aplicativo[]>}
    */
-  @Get()
+  @Get('/assinaturas')
   getTodasAssinaturas() {
     return this.assinaturaService.todasAssinaturas();
   }
 
   /**
    * @method createAssinatura
-   * @param createAssinaturaDto
-   * @returns {Promise<Assinatura>|Promise<*>|*}
+   * @param {CreateAssinaturaDto} createAssinaturaDto
+   * @returns {AssinaturaResponseDto} assinaturaResponseDto
+   *
    */
-
-  @Post()
+  @Post('/assinaturas')
   @Bind(Body())
   createAssinatura(createAssinaturaDto) {
     return this.assinaturaService.criarAssinatura(createAssinaturaDto);
@@ -42,11 +42,19 @@ export class AssinaturaController {
    * @param {Param} param
    * @returns {AssinaturaResponseDto} assinaturaResponseDto
    */
-  @Get('/:tipo')
+  @Get('assinaturas/:tipo')
   @Bind(Param())
   async getAssinaturaByTipo(param) {
     const { tipo } = param;
     return this.assinaturaService.getAssinaturaByTipo(tipo);
+  }
+
+  @Get('/asscli/:codcli')
+  @Bind(Param())
+  async getAssinaturaByCliente(param) {
+    const { codcli } = param;
+    console.log(codcli);
+    return this.assinaturaService.getAssinaturaByCodigoCliente(codcli);
   }
 }
 

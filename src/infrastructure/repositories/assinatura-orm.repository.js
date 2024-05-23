@@ -32,11 +32,12 @@ export class AssinaturaRepositoryORM {
 
   /**
    * @method criarAssinatura
+   * @description Cria uma nova assinatura
    * @returns {Promise<Assinatura>}
-   * @param assinatura
+   * @param {Assinatura} assinatura
    */
   async criarAssinatura(assinatura) {
-    return this.assinaturasRepository.save(assinatura);
+    return await this.assinaturasRepository.save(assinatura);
   }
 
   /**
@@ -53,4 +54,12 @@ export class AssinaturaRepositoryORM {
     });
   }
 
+  /**
+   * @method getAssinaturaByCodigoCliente
+   * @param codigoCliente
+   * @returns {Promise<Assinatura[]>}
+   */
+  async getAssinaturaByCodigoCliente(codigoCliente) {
+    return this.assinaturasRepository.find({ where: { cliente: { codigo: codigoCliente } } });
+  }
 }

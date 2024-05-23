@@ -1,3 +1,5 @@
+import { AssinaturaService } from '../../services/assinatura.service';
+
 /**
  * @class
  * @classdesc DTO para resposta de assinatura
@@ -9,10 +11,10 @@
  */
 export class AssinaturaResponseDto {
   constructor(assinatura) {
-    this.codigoAplicativo = assinatura.aplicativo.codigo;
-    this.codigoCliente = assinatura.cliente.codigo;
+    this.codigoAplicativo = assinatura.aplicativo.codigo || assinatura.codigo;
+    this.codigoCliente = assinatura.cliente.codigo || assinatura.codigo;
     this.inicioVigencia = assinatura.inicioVigencia;
     this.fimVigencia = assinatura.fimVigencia;
-    this.tipo = new Date(assinatura.fimVigencia) < new Date() ? 'CANCELADA' : 'ATIVA';
+    this.status = AssinaturaService.getStatusAssinatura(assinatura.fimVigencia);
   }
 }

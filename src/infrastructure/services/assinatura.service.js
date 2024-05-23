@@ -20,6 +20,12 @@ export class AssinaturaService {
     return this.assinaturaRepository.todasAssinaturas();
   }
 
+  /**
+   * @method criarAssinatura
+   * @description Cria uma nova assinatura
+   * @param createAssinaturaDto
+   * @returns {Promise<*|Assinatura>}
+   */
   async criarAssinatura(createAssinaturaDto) {
     const inicioVigencia = new Date();
     const fimVigencia = new Date(inicioVigencia);
@@ -34,9 +40,9 @@ export class AssinaturaService {
       formattedInicioVigencia,
       formattedFimVigencia,
     );
-
-    return this.assinaturaRepository.criarAssinatura(assinatura);
+    return this.convertAssinaturaToResponseDto(await this.assinaturaRepository.criarAssinatura(assinatura));
   }
+
 
   /**
    *
@@ -64,8 +70,32 @@ export class AssinaturaService {
    * @returns {AssinaturaResponseDto[]} assinaturas
    */
   convertListAssinaturaToResponseDto(assinaturas) {
-    return assinaturas.map((assinatura) => new AssinaturaResponseDto(assinatura));
+    return assinaturas.map((assinatura) => this.convertAssinaturaToResponseDto(assinatura));
+  }
+
+  convertAssinaturaToResponseDto(assinatura) {
+    return new AssinaturaResponseDto(assinatura);
+  }
+
+  /**
+   * @method getAssinaturaByCodigoCliente
+   * @param codigoCliente
+   * @returns {Promise<AssinaturaResponseDto[]>}
+   * @description Retorna todas as assinaturas por código de cliente
+   */
+  async getAssinaturaByCodigoCliente(codigoCliente) {
+    return this.convertListAssinaturaToResponseDto(await this.assinaturaRepository.getAssinaturaByCodigoCliente(codigoCliente));
+  }
+
+  /**
+   * @method getStatusAssinatura
+   * @description Define se a assinatura é válida ou cancelada
+   * @param {string} fimVigencia
+   * @returns {string}
+   */
+
+  static getStatusAssinatura(fimVigencia) {
+    return new Date(fimVigencia) < new Date() ? 'CANCELADA' : 'ATIVA';
   }
 }
-
 module.exports = { AssinaturaService };
