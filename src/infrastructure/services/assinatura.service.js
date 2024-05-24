@@ -142,17 +142,10 @@ export class AssinaturaService {
    */
   async renovarAssinatura(codigoAssinatura) {
     const assinatura = await this.assinaturaRepository.getAssinaturaByCodigo(codigoAssinatura);
-    const fimVigencia = new Date(assinatura.fimVigencia);
-    const fimVigenciaAtualizada = new Date(fimVigencia);
-    fimVigenciaAtualizada.setDate(fimVigencia.getDate() + this.#EXTENSAO_VIGENCIA);
-    const novaAssinatura = {
-      codigo: assinatura.codigo,
-      inicioVigencia: assinatura.fimVigencia,
-      fimVigencia: formatDateToMySQL(fimVigenciaAtualizada),
-      codigoAplicativo: assinatura.codigoAplicativo,
-      codigoCliente: assinatura.codigoCliente,
-    };
-    return await this.assinaturaRepository.atualizarAssinatura(novaAssinatura);
+    const fimVigenciaAtualizada = new Date(assinatura.fimVigencia);
+    fimVigenciaAtualizada.setDate(fimVigenciaAtualizada.getDate() + this.#EXTENSAO_VIGENCIA);
+    assinatura.fimVigencia = formatDateToMySQL(fimVigenciaAtualizada);
+    return await this.assinaturaRepository.atualizarAssinatura(assinatura);
   }
 }
 module.exports = { AssinaturaService };

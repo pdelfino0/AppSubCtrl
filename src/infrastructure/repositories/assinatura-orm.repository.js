@@ -81,14 +81,11 @@ export class AssinaturaRepositoryORM {
    * @param {Assinatura} assinatura
    */
   async atualizarAssinatura(assinatura) {
-    console.log('before query');
-    console.log(assinatura);
     let ok = await this.assinaturasRepository.createQueryBuilder().update(Assinatura).set({ ...assinatura }).where('codigo = :codigo', { codigo: assinatura.codigo }).execute();
-    console.log('after query');
     if (ok.affected === 0) {
       throw new Error('Assinatura não encontrada');
     }
-    return await this.assinaturasRepository.findOne({ where: { codigo: assinatura.codigo } });
+    return await this.getAssinaturaByCodigo(assinatura.codigo);
   }
 }
 
