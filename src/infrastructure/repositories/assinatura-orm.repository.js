@@ -16,12 +16,6 @@ export class AssinaturaRepositoryORM {
   }
 
   /**
-   * @method todasAssinaturas
-   * @returns {Promise<Assinatura[]>}
-   */
-
-
-  /**
    * @method getTodasAssinaturas Retorna todas as assinaturas
    * @description Retorna todas as assinaturas
    * @returns {Promise<Assinatura[]>}
@@ -71,4 +65,31 @@ export class AssinaturaRepositoryORM {
   async getAssinaturaByCodigoAplicativo(codigoAplicativo) {
     return this.assinaturasRepository.find({ where: { aplicativo: { codigo: codigoAplicativo } } });
   }
+
+  /**
+   * @method getAssinaturaByCodigo
+   * @param codigo
+   * @returns {Promise<Assinatura>}
+   */
+  async getAssinaturaByCodigo(codigo) {
+    return this.assinaturasRepository.findOneById(codigo);
+  }
+
+  /**
+   * @method atualizarAssinatura
+   * @description Atualiza uma assinatura
+   * @param {Assinatura} assinatura
+   */
+  async atualizarAssinatura(assinatura) {
+    console.log('before query');
+    console.log(assinatura);
+    let ok = await this.assinaturasRepository.createQueryBuilder().update(Assinatura).set({ ...assinatura }).where('codigo = :codigo', { codigo: assinatura.codigo }).execute();
+    console.log('after query');
+    if (ok.affected === 0) {
+      throw new Error('Assinatura não encontrada');
+    }
+    return await this.assinaturasRepository.findOne({ where: { codigo: assinatura.codigo } });
+  }
 }
+
+

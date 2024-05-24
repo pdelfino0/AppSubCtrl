@@ -81,6 +81,18 @@ export class AssinaturaController {
     const { codapp } = param;
     return this.assinaturaService.getAssinaturaByCodigoAplicativo(codapp);
   }
+
+  /**
+   *
+   * @method testeRenovarAssinatura
+   *
+   * @param pagamentoRenovadoEvento
+   */
+  @Post('/pagamentoRealizadoTeste')
+  @Bind(Body())
+  pagamentoRealizadoTeste(pagamentoRenovadoEvento) {
+    return this.assinaturaService.pagamentoRealizado(pagamentoRenovadoEvento);
+  }
 }
 
 

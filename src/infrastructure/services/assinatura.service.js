@@ -13,19 +13,29 @@ import { AssinaturaResponseDto } from '../../common/dto/responses/assinatura-res
 @Dependencies(AssinaturaRepositoryORM)
 export class AssinaturaService {
 
-  private PERIODO_GRATUITO = 7;
-  private EXTENSAO_VIGENCIA = 30;
+  #PERIODO_GRATUITO = 7;
+  #EXTENSAO_VIGENCIA = 30;
 
   constructor(assinaturaRepositoryORM) {
     this.assinaturaRepository = assinaturaRepositoryORM;
   }
 
   /**
-   * @method todasAssinaturas
+   * @method getStatusAssinatura
+   * @description Define se a assinatura é válida ou cancelada
+   * @param {string} fimVigencia
+   * @returns {string}
+   */
+  static getStatusAssinatura(fimVigencia) {
+    return new Date(fimVigencia) < new Date() ? 'CANCELADA' : 'ATIVA';
+  }
+
+  /**
+   * @method getTodasAssinaturas
    * @description Retorna todas as assinaturas
    * @returns {AssinaturaResponseDto} assinaturaResponseDto
    */
-  async todasAssinaturas() {
+  async getTodasAssinaturas() {
     return this.convertListAssinaturaToResponseDto(await this.assinaturaRepository.getTodasAssinaturas());
   }
 
@@ -35,11 +45,10 @@ export class AssinaturaService {
    * @param createAssinaturaDto
    * @returns {Promise<*|Assinatura>}
    */
-  //TODO: Refatorar para criar assinaturas com vigência de 7 dias padrão.
   async criarAssinatura(createAssinaturaDto) {
     const inicioVigencia = new Date();
     const fimVigencia = new Date(inicioVigencia);
-    fimVigencia.setDate(inicioVigencia.getDate() + 30);
+    fimVigencia.setDate(inicioVigencia.getDate() + this.#PERIODO_GRATUITO);
 
     const formattedInicioVigencia = formatDateToMySQL(inicioVigencia);
     const formattedFimVigencia = formatDateToMySQL(fimVigencia);
@@ -53,11 +62,7 @@ export class AssinaturaService {
     return this.convertAssinaturaToResponseDto(await this.assinaturaRepository.criarAssinatura(assinatura));
   }
 
-  //TODO: Criar um método para extender a vigência de uma assinatura de 7 dias para 30 dias mediante pagamento.
-
-
   /**
-   *
    * @method getAssinaturaByTipo
    * @param tipo
    * @returns {AssinaturaResponseDto[]} assinaturas
@@ -107,27 +112,47 @@ export class AssinaturaService {
   }
 
   /**
-   * @method getStatusAssinatura
-   * @description Define se a assinatura é válida ou cancelada
-   * @param {string} fimVigencia
-   * @returns {string}
-   */
-
-  static getStatusAssinatura(fimVigencia) {
-    return new Date(fimVigencia) < new Date() ? 'CANCELADA' : 'ATIVA';
-  }
-
-  /**
    *
    * @method getAssinaturaByCodigoAplicativo
    * @description Retorna todas as assinaturas por código de aplicativo
    * @param {number} codigoAplicativo
    * @returns {Promise<AssinaturaResponseDto[]>}
    */
-
   async getAssinaturaByCodigoAplicativo(codigoAplicativo) {
     return this.convertListAssinaturaToResponseDto(await this.assinaturaRepository.getAssinaturaByCodigoAplicativo(codigoAplicativo));
   }
-}
 
+  /**
+   * @method pagamentoRealizado
+   * @description Atualiza a assinatura com base no pagamento realizado
+   * @param pagamentoRealizadoEvento
+   */
+  //TODO: Verificao se o valor pago é o mesmo que o valor da assinatura
+  //TODO: Inserir no banco o pagamento realizado
+  async pagamentoRealizado(pagamentoRealizadoEvento) {
+
+    const codigoAssinatura = pagamentoRealizadoEvento.codAss;
+    return this.renovarAssinatura(codigoAssinatura);
+  }
+
+  /**
+   * @method renovarAssinatura
+   * @description Renova a assinatura por mais {this.EXTENSAO_VIGENCIA} dias
+   * @param codigoAssinatura
+   */
+  async renovarAssinatura(codigoAssinatura) {
+    const assinatura = await this.assinaturaRepository.getAssinaturaByCodigo(codigoAssinatura);
+    const fimVigencia = new Date(assinatura.fimVigencia);
+    const fimVigenciaAtualizada = new Date(fimVigencia);
+    fimVigenciaAtualizada.setDate(fimVigencia.getDate() + this.#EXTENSAO_VIGENCIA);
+    const novaAssinatura = {
+      codigo: assinatura.codigo,
+      inicioVigencia: assinatura.fimVigencia,
+      fimVigencia: formatDateToMySQL(fimVigenciaAtualizada),
+      codigoAplicativo: assinatura.codigoAplicativo,
+      codigoCliente: assinatura.codigoCliente,
+    };
+    return await this.assinaturaRepository.atualizarAssinatura(novaAssinatura);
+  }
+}
 module.exports = { AssinaturaService };
