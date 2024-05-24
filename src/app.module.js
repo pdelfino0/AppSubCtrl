@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ClienteModule } from './infrastructure/modules/cliente.module';
-import { AplicativoModule } from './infrastructure/modules/aplicativo.module';
-import { AssinaturaModule } from './infrastructure/modules/assinatura.module';
+import { ClienteModule } from './modules/cliente.module';
+import { AplicativoModule } from './modules/aplicativo.module';
+import { AssinaturaModule } from './modules/assinatura.module';
 
 @Module({
   imports: [

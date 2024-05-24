@@ -1,9 +1,9 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { AplicativoRepositoryORM } from '../repositories/aplicativo-orm.repository';
-import { AplicativoService } from '../services/aplicativo.service';
-import { AplicativoController } from '../controllers/aplicativo.controller';
-import { Aplicativo } from '../../domain/entities/aplicativo.entity';
+import { AplicativoRepositoryORM } from '../infrastructure/repositories/aplicativo-orm.repository';
+import { AplicativoService } from '../infrastructure/services/aplicativo.service';
+import { AplicativoController } from '../infrastructure/controllers/aplicativo.controller';
+import { Aplicativo } from '../domain/entities/aplicativo.entity';
 
 /**
  * @class AplicativoModule

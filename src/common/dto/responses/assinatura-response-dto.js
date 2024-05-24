@@ -1,4 +1,4 @@
-import { AssinaturaService } from '../../services/assinatura.service';
+import { AssinaturaService } from '../../../infrastructure/services/assinatura.service';
 
 /**
  * @class

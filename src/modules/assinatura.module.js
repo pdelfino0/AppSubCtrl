@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Assinatura } from '../../domain/entities/assinatura.entity';
-import { AssinaturaController } from '../controllers/assinatura.controller';
-import { AssinaturaRepositoryORM } from '../repositories/assinatura-orm.repository';
-import { AssinaturaService } from '../services/assinatura.service';
+import { Assinatura } from '../domain/entities/assinatura.entity';
+import { AssinaturaController } from '../infrastructure/controllers/assinatura.controller';
+import { AssinaturaRepositoryORM } from '../infrastructure/repositories/assinatura-orm.repository';
+import { AssinaturaService } from '../infrastructure/services/assinatura.service';
 
 /**
  * @class AssinaturaModule

@@ -1,6 +1,6 @@
 import { Dependencies, Injectable } from '@nestjs/common';
 import { AplicativoRepositoryORM } from '../repositories/aplicativo-orm.repository';
-import { AplicativoResponseDto } from '../dto/responses/aplicativo-response-dto';
+import { AplicativoResponseDto } from '../../common/dto/responses/aplicativo-response-dto';
 
 /**
  * @class AplicativoService

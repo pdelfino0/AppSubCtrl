@@ -2,7 +2,7 @@ import { Dependencies, Injectable } from '@nestjs/common';
 import { AssinaturaRepositoryORM } from '../repositories/assinatura-orm.repository';
 import { Assinatura } from '../../domain/entities/assinatura.entity';
 import { formatDateToMySQL } from '../../common/utils';
-import { AssinaturaResponseDto } from '../dto/responses/assinatura-response-dto';
+import { AssinaturaResponseDto } from '../../common/dto/responses/assinatura-response-dto';
 
 /**
  * @class AssinaturaService
