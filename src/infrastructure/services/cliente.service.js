@@ -20,7 +20,7 @@ export class ClienteService {
   /**
    * @method getTodosClientes
    * @description Retorna todos os clientes
-   * @returns {Promise<ClienteResponseDto>}
+   * @returns {Promise<ClienteResponseDto[]>}
    */
   async getTodosClientes() {
     return this.convertListClienteToResponseDto(await this.clienteRepo.getTodosClientes());
