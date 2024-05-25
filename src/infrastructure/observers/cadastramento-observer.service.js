@@ -5,7 +5,7 @@ import type { IObserver } from './i-observer';
 
 @Injectable()
 @Dependencies(AssinaturaService)
-export class CadastramentoObserverService implements IObserver {
+export class CadastramentoObserver implements IObserver {
   constructor(AssinaturaService) {
     this.AssinaturaService = AssinaturaService;
   }
@@ -13,9 +13,9 @@ export class CadastramentoObserverService implements IObserver {
   /**
    * @method notify
    * @description Notifica o serviço de assinatura sobre um evento de pagamento realizado
-   * @param AssinaturaRenovadaEvento
+   * @param {PagamentoEfetuadoEvento} pagamentoEfetuadoEvento
    */
-  notify(AssinaturaRenovadaEvento) {
-    this.AssinaturaService.pagamentoRealizado(AssinaturaRenovadaEvento);
+  notify(pagamentoEfetuadoEvento) {
+    this.AssinaturaService.pagamentoRealizado(pagamentoEfetuadoEvento);
   }
 }

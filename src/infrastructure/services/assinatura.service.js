@@ -123,15 +123,15 @@ export class AssinaturaService {
   /**
    * @method pagamentoRealizado
    * @description Atualiza a assinatura com base no pagamento realizado
-   * @param { AssinaturaRenovadaEvento } assinaturaRenovadaEvento
+   * @param { PagamentoEfetuadoEvento } pagamentoEfetuadoEvento
    */
-  async pagamentoRealizado(assinaturaRenovadaEvento) {
+  async pagamentoRealizado(pagamentoEfetuadoEvento) {
 
     //Extraindo variaveis do evento para facilitar a leitura
-    const codigoAssinatura = assinaturaRenovadaEvento.codAss;
+    const codigoAssinatura = pagamentoEfetuadoEvento.codAss;
     const assinatura = await this.assinaturaRepository.getAssinaturaByCodigoAssinatura(codigoAssinatura);
     const codigoAplicativo = assinatura.aplicativo.codigo;
-    const valorPago = assinaturaRenovadaEvento.valorPago;
+    const valorPago = pagamentoEfetuadoEvento.valorPago;
 
     //Verifica se o valor pago é igual ao valor da assinatura para evitar fraudes ou pagamento de valores errados
     if (!await this.aplicativoService.isValorPagoEqualCustoMensal(codigoAplicativo, valorPago)) {

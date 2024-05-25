@@ -13,7 +13,7 @@ export class ClienteController {
   }
 
   /**
-   *
+
    * @method getTodosClientes
    * @returns {Promise<ClienteResponseDto[]>}
    */
