@@ -3,7 +3,6 @@ import { AssinaturaRepositoryORM } from '../repositories/assinatura-orm.reposito
 import { Assinatura } from '../../domain/entities/assinatura.entity';
 import { formatDateToMySQL } from '../../common/utils';
 import { AssinaturaResponseDto } from '../../common/dto/responses/assinatura-response-dto';
-import { AplicativoService } from './aplicativo.service';
 
 /**
  * @class AssinaturaService
@@ -11,7 +10,7 @@ import { AplicativoService } from './aplicativo.service';
  * @method todasAssinaturas - Retorna todas as assinaturas
  */
 @Injectable()
-@Dependencies(AssinaturaRepositoryORM, AplicativoService)
+@Dependencies(AssinaturaRepositoryORM)
 export class AssinaturaService {
 
   constructor(assinaturaRepositoryORM, aplicativoService) {
@@ -151,7 +150,7 @@ export class AssinaturaService {
    * @returns {{message: string}}
    * @constructor
    */
-  private MensagemValoresDivergentes(codigoAplicativo, valorPago) {
+  MensagemValoresDivergentes(codigoAplicativo, valorPago) {
     //Retorna uma mensagem de erro para valores divergentes e explica o motivo do cancelamento
     return {
       message: `O valor pago (${valorPago}) diverge do valor do custo mensal do aplicativo ${codigoAplicativo}. Sendo assim, estaremos cancelando essa operação por segurança. Por favor, tente novamente com o valor correto.`,
