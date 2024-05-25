@@ -17,7 +17,7 @@ export class AplicativoService {
   /**
    * @method getTodosAplicativos
    * @description Retorna todos os aplicativos
-   * @returns {Promise<AplicativoResponseDto>}
+   * @returns {Promise<AplicativoResponseDto[]>}
    */
   async getTodosAplicativos() {
     return this.aplicativoRepo.todos();
