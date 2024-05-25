@@ -22,7 +22,7 @@ export class AssinaturaController {
    */
   @Get('/assinaturas')
   getTodasAssinaturas() {
-    return this.assinaturaService.todasAssinaturas();
+    return this.assinaturaService.getTodasAssinaturas();
   }
 
   /**
