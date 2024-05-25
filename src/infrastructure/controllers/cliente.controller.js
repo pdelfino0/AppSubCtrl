@@ -14,8 +14,8 @@ export class ClienteController {
 
   /**
    *
-   * @returns {Promise<Cliente[]>}
    * @method getTodosClientes
+   * @returns {Promise<ClienteResponseDto[]>}
    */
   @Get()
   getTodosClientes() {
