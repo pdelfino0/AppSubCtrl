@@ -3,6 +3,7 @@ import { AssinaturaRepositoryORM } from '../repositories/assinatura-orm.reposito
 import { Assinatura } from '../../domain/entities/assinatura.entity';
 import { formatDateToMySQL } from '../../common/utils';
 import { AssinaturaResponseDto } from '../../common/dto/responses/assinatura-response-dto';
+import { AplicativoService } from './aplicativo.service';
 
 /**
  * @class AssinaturaService
@@ -10,14 +11,12 @@ import { AssinaturaResponseDto } from '../../common/dto/responses/assinatura-res
  * @method todasAssinaturas - Retorna todas as assinaturas
  */
 @Injectable()
-@Dependencies(AssinaturaRepositoryORM)
+@Dependencies(AssinaturaRepositoryORM, AplicativoService)
 export class AssinaturaService {
 
-  #PERIODO_GRATUITO = 7;
-  #EXTENSAO_VIGENCIA = 30;
-
-  constructor(assinaturaRepositoryORM) {
+  constructor(assinaturaRepositoryORM, aplicativoService) {
     this.assinaturaRepository = assinaturaRepositoryORM;
+    this.aplicativoService = aplicativoService;
   }
 
   /**
@@ -48,7 +47,7 @@ export class AssinaturaService {
   async criarAssinatura(createAssinaturaDto) {
     const inicioVigencia = new Date();
     const fimVigencia = new Date(inicioVigencia);
-    fimVigencia.setDate(inicioVigencia.getDate() + this.#PERIODO_GRATUITO);
+    fimVigencia.setDate(inicioVigencia.getDate() + Assinatura.PERIODO_GRATUITO);
 
     const formattedInicioVigencia = formatDateToMySQL(inicioVigencia);
     const formattedFimVigencia = formatDateToMySQL(fimVigencia);
@@ -127,12 +126,36 @@ export class AssinaturaService {
    * @description Atualiza a assinatura com base no pagamento realizado
    * @param pagamentoRealizadoEvento
    */
-  //TODO: Verificao se o valor pago é o mesmo que o valor da assinatura
-  //TODO: Inserir no banco o pagamento realizado
   async pagamentoRealizado(pagamentoRealizadoEvento) {
 
+    //Extraindo variaveis do evento para facilitar a leitura
     const codigoAssinatura = pagamentoRealizadoEvento.codAss;
-    return this.renovarAssinatura(codigoAssinatura);
+    const assinatura = await this.assinaturaRepository.getAssinaturaByCodigo(codigoAssinatura);
+    const codigoAplicativo = assinatura.aplicativo.codigo;
+    const valorPago = pagamentoRealizadoEvento.valorPago;
+
+    //Verifica se o valor pago é igual ao valor da assinatura para evitar fraudes ou pagamento de valores errados
+    if (!await this.aplicativoService.isValorPagoEqualCustoMensal(codigoAplicativo, valorPago)) {
+      return this.MensagemValoresDivergentes(codigoAplicativo, valorPago);
+    }
+
+    //Caso verdade falso, renova a assinatura normalmente.
+    return await this.renovarAssinatura(codigoAssinatura);
+  }
+
+  /**
+   * @method MensagemValoresDivergentes
+   * @description Retorna uma mensagem de erro para valores divergentes
+   * @param codigoAplicativo
+   * @param valorPago
+   * @returns {{message: string}}
+   * @constructor
+   */
+  private MensagemValoresDivergentes(codigoAplicativo, valorPago) {
+    //Retorna uma mensagem de erro para valores divergentes e explica o motivo do cancelamento
+    return {
+      message: `O valor pago (${valorPago}) diverge do valor do custo mensal do aplicativo ${codigoAplicativo}. Sendo assim, estaremos cancelando essa operação por segurança. Por favor, tente novamente com o valor correto.`,
+    };
   }
 
   /**
@@ -141,11 +164,22 @@ export class AssinaturaService {
    * @param codigoAssinatura
    */
   async renovarAssinatura(codigoAssinatura) {
+    //Busca a assinatura no banco de dados
     const assinatura = await this.assinaturaRepository.getAssinaturaByCodigo(codigoAssinatura);
+
+    //Converte a data de fim de vigência para um objeto Date
     const fimVigenciaAtualizada = new Date(assinatura.fimVigencia);
-    fimVigenciaAtualizada.setDate(fimVigenciaAtualizada.getDate() + this.#EXTENSAO_VIGENCIA);
+
+    //Adiciona os dias de extensão da vigência (definido na classe Assinatura)
+    fimVigenciaAtualizada.setDate(fimVigenciaAtualizada.getDate() + Assinatura.EXTENSAO_VIGENCIA);
     assinatura.fimVigencia = formatDateToMySQL(fimVigenciaAtualizada);
-    return await this.assinaturaRepository.atualizarAssinatura(assinatura);
+
+    //Atualiza a assinatura no banco de dados
+    await this.assinaturaRepository.atualizarAssinatura(assinatura);
+    //Logga no console que a assinatura foi renovada com sucesso
+    console.log(`Assinatura ${codigoAssinatura} renovada com sucesso!`);
+
+
   }
 }
 module.exports = { AssinaturaService };

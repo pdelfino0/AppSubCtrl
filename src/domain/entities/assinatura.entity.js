@@ -23,4 +23,8 @@ export class Assinatura {
     this.fimVigencia = fimVigencia;
   }
 
+  //Aqui está definido o período gratuito e a extensão da vigência, de fácil acesso para alteração caso necessário
+  static PERIODO_GRATUITO = 7;
+  static  EXTENSAO_VIGENCIA = 30;
+
 }
