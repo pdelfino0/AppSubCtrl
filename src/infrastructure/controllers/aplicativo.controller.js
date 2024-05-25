@@ -17,11 +17,11 @@ export class AplicativoController {
 
  /**
   * @method getTodosAplicativos
-  * @returns {Promise<Aplicativo[]>}
+  * @returns {Promise<AplicativoResponseDto[]>} aplicativoResponseDto
   */
   @Get()
  getTodosAplicativos() {
-    return this.aplicativoService.todos();
+   return this.aplicativoService.getTodosAplicativos();
   }
 
   /**

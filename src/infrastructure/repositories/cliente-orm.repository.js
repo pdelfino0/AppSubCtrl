@@ -17,7 +17,11 @@ export class ClienteRepositoryORM {
   }
 
 
-  async todos() {
+  /**
+   * @method getTodosClientes
+   * @returns {Promise<Cliente[]>}
+   */
+  async getTodosClientes() {
     return this.#clienteRepo.find();
   }
 }

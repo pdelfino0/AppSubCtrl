@@ -19,7 +19,7 @@ export class ClienteController {
    */
   @Get()
   getTodosClientes() {
-    return this.clienteService.todos();
+    return this.clienteService.getTodosClientes();
   }
 }
 

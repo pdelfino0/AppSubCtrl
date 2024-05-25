@@ -67,11 +67,11 @@ export class AssinaturaRepositoryORM {
   }
 
   /**
-   * @method getAssinaturaByCodigo
+   * @method getAssinaturaByCodigoAssinatura
    * @param codigo
    * @returns {Promise<Assinatura>}
    */
-  async getAssinaturaByCodigo(codigo) {
+  async getAssinaturaByCodigoAssinatura(codigo) {
     return this.assinaturasRepository.findOneById(codigo);
   }
 
@@ -85,7 +85,7 @@ export class AssinaturaRepositoryORM {
     if (ok.affected === 0) {
       throw new Error('Assinatura não encontrada');
     }
-    return await this.getAssinaturaByCodigo(assinatura.codigo);
+    return await this.getAssinaturaByCodigoAssinatura(assinatura.codigo);
   }
 }
 

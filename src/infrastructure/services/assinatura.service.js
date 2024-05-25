@@ -1,7 +1,7 @@
 import { Dependencies, Injectable } from '@nestjs/common';
 import { AssinaturaRepositoryORM } from '../repositories/assinatura-orm.repository';
 import { Assinatura } from '../../domain/entities/assinatura.entity';
-import { formatDateToMySQL } from '../../common/utils';
+import { formatDateToMySQL } from '../../common/utils/formatters';
 import { AssinaturaResponseDto } from '../../common/dto/responses/assinatura-response-dto';
 
 /**
@@ -31,7 +31,7 @@ export class AssinaturaService {
   /**
    * @method getTodasAssinaturas
    * @description Retorna todas as assinaturas
-   * @returns {AssinaturaResponseDto} assinaturaResponseDto
+   * @returns {AssinaturaResponseDto[]} assinaturaResponseDto
    */
   async getTodasAssinaturas() {
     return this.convertListAssinaturaToResponseDto(await this.assinaturaRepository.getTodasAssinaturas());
@@ -41,7 +41,7 @@ export class AssinaturaService {
    * @method criarAssinatura
    * @description Cria uma nova assinatura
    * @param createAssinaturaDto
-   * @returns {Promise<*|Assinatura>}
+   * @returns {Promise<AssinaturaResponseDto>} assinaturaResponseDto
    */
   async criarAssinatura(createAssinaturaDto) {
     const inicioVigencia = new Date();
@@ -123,15 +123,15 @@ export class AssinaturaService {
   /**
    * @method pagamentoRealizado
    * @description Atualiza a assinatura com base no pagamento realizado
-   * @param pagamentoRealizadoEvento
+   * @param { AssinaturaRenovadaEvento } assinaturaRenovadaEvento
    */
-  async pagamentoRealizado(pagamentoRealizadoEvento) {
+  async pagamentoRealizado(assinaturaRenovadaEvento) {
 
     //Extraindo variaveis do evento para facilitar a leitura
-    const codigoAssinatura = pagamentoRealizadoEvento.codAss;
-    const assinatura = await this.assinaturaRepository.getAssinaturaByCodigo(codigoAssinatura);
+    const codigoAssinatura = assinaturaRenovadaEvento.codAss;
+    const assinatura = await this.assinaturaRepository.getAssinaturaByCodigoAssinatura(codigoAssinatura);
     const codigoAplicativo = assinatura.aplicativo.codigo;
-    const valorPago = pagamentoRealizadoEvento.valorPago;
+    const valorPago = assinaturaRenovadaEvento.valorPago;
 
     //Verifica se o valor pago é igual ao valor da assinatura para evitar fraudes ou pagamento de valores errados
     if (!await this.aplicativoService.isValorPagoEqualCustoMensal(codigoAplicativo, valorPago)) {
@@ -164,7 +164,7 @@ export class AssinaturaService {
    */
   async renovarAssinatura(codigoAssinatura) {
     //Busca a assinatura no banco de dados
-    const assinatura = await this.assinaturaRepository.getAssinaturaByCodigo(codigoAssinatura);
+    const assinatura = await this.assinaturaRepository.getAssinaturaByCodigoAssinatura(codigoAssinatura);
 
     //Converte a data de fim de vigência para um objeto Date
     const fimVigenciaAtualizada = new Date(assinatura.fimVigencia);

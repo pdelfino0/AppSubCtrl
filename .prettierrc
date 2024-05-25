@@ -1,4 +1,17 @@
 {
   "singleQuote": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "plugins": [
+    "prettier-plugin-jsdoc"
+  ],
+  "jsdocSpaces": 1,
+  "jsdocDescriptionWithDot": false,
+  "overrides": [
+    {
+      "files": "*.js",
+      "options": {
+        "jsdocVerticalAlignment": false
+      }
+    }
+  ]
 }

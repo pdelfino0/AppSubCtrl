@@ -18,7 +18,7 @@ export class AssinaturaController {
   /**
    * @method getTodasAssinaturas
    * @description Retorna todas as assinaturas
-   * @returns {Promise<Aplicativo[]>}
+   * @returns {AssinaturaResponseDto[]} assinaturaResponseDto
    */
   @Get('/assinaturas')
   getTodasAssinaturas() {
@@ -30,14 +30,13 @@ export class AssinaturaController {
    * @description Cria uma nova assinatura
    * @param {CreateAssinaturaDto} createAssinaturaDto
    * @returns {AssinaturaResponseDto} assinaturaResponseDto
-   *
    */
 
   @Post('/assinaturas')
   @Bind(Body())
   createAssinatura(createAssinaturaDto) {
     return this.assinaturaService.criarAssinatura(createAssinaturaDto);
-}
+  }
 
 
   /**
@@ -54,7 +53,6 @@ export class AssinaturaController {
   }
 
   /**
-   *
    * @method getAssinaturaByClienteCodigo
    * @description Retorna assinaturas de um cliente pelo código dele.
    * @param param
@@ -69,7 +67,6 @@ export class AssinaturaController {
   }
 
   /**
-   *
    * @method getAssinaturaByCodigoAplicativo
    * @param {Param} param
    * @returns {AssinaturaResponseDto} assinaturaResponse
@@ -80,18 +77,6 @@ export class AssinaturaController {
   async getAssinaturaByCodigoAplicativo(param) {
     const { codapp } = param;
     return this.assinaturaService.getAssinaturaByCodigoAplicativo(codapp);
-  }
-
-  /**
-   *
-   * @method testeRenovarAssinatura
-   *
-   * @param pagamentoRenovadoEvento
-   */
-  @Post('/pagamentoRealizadoTeste')
-  @Bind(Body())
-  pagamentoRealizadoTeste(pagamentoRenovadoEvento) {
-    return this.assinaturaService.pagamentoRealizado(pagamentoRenovadoEvento);
   }
 }
 

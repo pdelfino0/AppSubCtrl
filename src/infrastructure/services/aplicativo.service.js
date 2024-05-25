@@ -15,10 +15,11 @@ export class AplicativoService {
   }
 
   /**
-   * @method todos
-   * @returns {Promise<Aplicativo[]>}
+   * @method getTodosAplicativos
+   * @description Retorna todos os aplicativos
+   * @returns {Promise<AplicativoResponseDto>}
    */
-  async todos() {
+  async getTodosAplicativos() {
     return this.aplicativoRepo.todos();
   }
 
@@ -26,7 +27,7 @@ export class AplicativoService {
    * @method atualizarCustoMensal
    * @param {UpdateCustoMensalAplicativoDto} updateCustoMensalAplicativoDto
    * @param {string} codigoAplicativo
-   * @returns {AplicativoResponseDto}
+   * @returns {AplicativoResponseDto} aplicativoResponseDto
    */
   async atualizarCustoMensal(updateCustoMensalAplicativoDto, codigoAplicativo) {
     const aplicativo = await this.aplicativoRepo.findOneById(codigoAplicativo);
@@ -51,7 +52,7 @@ export class AplicativoService {
    * @description Verifica se o valor pago é igual ao custo mensal
    * @param codigoAplicativo
    * @param valorPago
-   * @returns {Promise<void>}
+   * @returns {Promise<boolean>}
    */
   async isValorPagoEqualCustoMensal(codigoAplicativo, valorPago) {
     const aplicativo = await this.aplicativoRepo.findOneById(codigoAplicativo);
