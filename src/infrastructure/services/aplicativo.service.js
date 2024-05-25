@@ -20,7 +20,7 @@ export class AplicativoService {
    * @returns {Promise<AplicativoResponseDto[]>}
    */
   async getTodosAplicativos() {
-    return this.aplicativoRepo.todos();
+    return this.aplicativoRepo.getTodosAplicativos();
   }
 
   /**

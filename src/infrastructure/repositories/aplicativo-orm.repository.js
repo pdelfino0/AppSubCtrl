@@ -17,10 +17,10 @@ export class AplicativoRepositoryORM {
   }
 
   /**
-   * @method todos
+   * @method getTodosAplicativos
    * @returns {Promise<Aplicativo[]>}
    */
-  async todos() {
+  async getTodosAplicativos() {
     return this.aplicativos.find();
   }
 
