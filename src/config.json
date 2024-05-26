@@ -1,0 +1,10 @@
+{
+  "database": {
+    "type": "mysql",
+    "host": "***REMOVED***",
+    "port": ***REMOVED***,
+    "username": "***REMOVED***",
+    "password": "***REMOVED***",
+    "database": "***REMOVED***"
+  }
+}
