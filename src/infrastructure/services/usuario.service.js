@@ -13,6 +13,7 @@ export class UsuarioService {
    * @method getTodosUsuarios
    * @returns {Promise<Usuario[]>}
    */
+  // Retorna todos os usuários
   async getTodosUsuarios() {
     return await this.usuarioRepositorio.getTodosUsuarios();
   }
@@ -23,11 +24,10 @@ export class UsuarioService {
    * @param {Usuario} usuario
    * @returns {Promise<Usuario>}
    */
+  // Cria um novo usuário
   async createUsuario(usuario) {
     return await this.usuarioRepositorio.createUsuario(usuario);
   }
-
-
 }
 
 module.exports = { UsuarioService };

@@ -21,6 +21,7 @@ export class ClienteRepositoryORM {
    * @method getTodosClientes
    * @returns {Promise<Cliente[]>}
    */
+  // Retorna todos os clientes
   async getTodosClientes() {
     return this.#clienteRepo.find();
   }

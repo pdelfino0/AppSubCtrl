@@ -10,8 +10,11 @@ import { UsuarioRepositoryOrm } from '../infrastructure/repositories/usuario.rep
 
 
 @Module({
+  // Importa o módulo de TypeORM para fornecer a funcionalidade de persistência para a entidade Usuario
   imports: [TypeOrmModule.forFeature([Usuario])],
+  // Define os controladores e serviços que fazem parte do módulo
   controllers: [],
+  // Define os repositórios e serviços que fazem parte do módulo
   providers: [UsuarioRepositoryOrm],
 })
 export class UsuarioModule {

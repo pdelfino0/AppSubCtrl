@@ -22,6 +22,7 @@ export class ClienteService {
    * @description Retorna todos os clientes
    * @returns {Promise<ClienteResponseDto[]>}
    */
+  // Retorna todos os clientes
   async getTodosClientes() {
     return this.convertListClienteToResponseDto(await this.clienteRepo.getTodosClientes());
   }
@@ -32,6 +33,7 @@ export class ClienteService {
    * @param {Cliente} cliente
    * @returns {ClienteResponseDto}
    */
+  // Converte um Cliente para ClienteResponseDto
   convertClienteToClienteResponseDto(cliente) {
     return new ClienteResponseDto(cliente);
   }
@@ -42,6 +44,7 @@ export class ClienteService {
    * @param {Cliente[]} clientes
    * @returns {ClienteResponseDto[]}
    */
+  // Converte uma lista de Cliente para ClienteResponseDto
   convertListClienteToResponseDto(clientes) {
     return clientes.map(cliente => this.convertClienteToClienteResponseDto(cliente));
   }

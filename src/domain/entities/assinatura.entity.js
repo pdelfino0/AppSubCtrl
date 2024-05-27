@@ -7,9 +7,11 @@ import { Cliente } from './cliente.entity';
 export class Assinatura {
   @PrimaryGeneratedColumn() codigo;
 
+  //Relação de muitos para um, onde um aplicativo pode ter várias assinaturas
   @ManyToOne(() => Aplicativo, { eager: true, nullable: false })
   aplicativo;
 
+  //Relação de muitos para um, onde um cliente pode ter várias assinaturas
   @ManyToOne(() => Cliente, { eager: true, nullable: false })
   cliente;
 

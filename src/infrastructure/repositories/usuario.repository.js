@@ -19,6 +19,7 @@ export class UsuarioRepositoryOrm {
    * @description Retorna todos os usuários
    * @returns {Promise<Usuario[]>}
    */
+  // Retorna todos os usuários
   async getTodosUsuarios() {
     return this.usuariosRepository.find();
   }
@@ -29,6 +30,7 @@ export class UsuarioRepositoryOrm {
    * @param {Usuario} usuario
    * @returns {Promise<Usuario>}
    */
+  // Cria um novo usuário
   async createUsuario(usuario) {
     return this.usuariosRepository.save(usuario);
   }

@@ -11,8 +11,11 @@ import { ClienteService } from '../infrastructure/services/cliente.service';
  */
 @Module
 ({
+  // Importa o módulo de TypeORM para fornecer a funcionalidade de persistência para a entidade Cliente
   imports: [TypeOrmModule.forFeature([Cliente])],
+  // Define os controladores e serviços que fazem parte do módulo
   controllers: [ClienteController],
+  // Define os repositórios e serviços que fazem parte do módulo
   providers: [ClienteRepositoryORM, ClienteService],
 
 })

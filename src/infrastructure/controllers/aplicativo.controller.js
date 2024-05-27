@@ -19,6 +19,7 @@ export class AplicativoController {
   * @method getTodosAplicativos
   * @returns {Promise<AplicativoResponseDto[]>} aplicativoResponseDto
   */
+ //Endpoint para retornar todos os aplicativos
   @Get()
  getTodosAplicativos() {
    return this.aplicativoService.getTodosAplicativos();
@@ -30,6 +31,7 @@ export class AplicativoController {
    * @param {Param} param
    * @returns {AplicativoResponseDto}
    */
+  //Endpoint para atualizar o custo mensal de um aplicativo
   @Patch('/:idAplicativo')
   @Bind(Body(), Param())
   atualizarCustoMensalAplicativo(

@@ -20,6 +20,7 @@ export class AplicativoRepositoryORM {
    * @method getTodosAplicativos
    * @returns {Promise<Aplicativo[]>}
    */
+  // Retorna todos os aplicativos
   async getTodosAplicativos() {
     return this.aplicativos.find();
   }
@@ -29,6 +30,7 @@ export class AplicativoRepositoryORM {
    * @param id
    * @returns {Promise<Aplicativo>}
    */
+  // Retorna um aplicativo pelo codigo
   async findOneById(id) {
     return this.aplicativos.findOne({ where: { codigo: id } });
   }
@@ -38,6 +40,7 @@ export class AplicativoRepositoryORM {
    * @returns {Promise<Aplicativo>}
    * @param {Aplicativo} aplicativo
    */
+  // Atualiza um aplicativo passando o objeto aplicativo
   async atualizar(aplicativo) {
     let ok = await this.aplicativos.createQueryBuilder().update(Aplicativo).set({ ...aplicativo }).where('codigo = :codigo', { codigo: aplicativo.codigo }).execute();
     if (ok.affected === 0) {

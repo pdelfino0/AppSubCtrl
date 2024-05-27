@@ -20,6 +20,7 @@ export class AssinaturaController {
    * @description Retorna todas as assinaturas
    * @returns {AssinaturaResponseDto[]} assinaturaResponseDto
    */
+  //Endpoint para retornar todas as assinaturas
   @Get('/assinaturas')
   getTodasAssinaturas() {
     return this.assinaturaService.getTodasAssinaturas();
@@ -32,6 +33,7 @@ export class AssinaturaController {
    * @returns {AssinaturaResponseDto} assinaturaResponseDto
    */
 
+  //Endpoint para criar uma nova assinatura
   @Post('/assinaturas')
   @Bind(Body())
   createAssinatura(createAssinaturaDto) {
@@ -39,6 +41,7 @@ export class AssinaturaController {
   }
 
 
+  //Endpoint para retornar todas as assinaturas a partir do status da assinatura (ativa, cancelada ou todas)
   /**
    * @method getAssinaturaByTipo
    * @description Retorna todas as assinaturas por tipo
@@ -59,6 +62,7 @@ export class AssinaturaController {
    * @returns {AssinaturaResponseDto} assinaturaResponseDto
    */
 
+  //Endpoint para retornar todas as assinaturas de um cliente pelo código dele
   @Get('/asscli/:codcli')
   @Bind(Param())
   async getAssinaturaByClienteCodigo(param) {
@@ -66,6 +70,7 @@ export class AssinaturaController {
     return this.assinaturaService.getAssinaturaByCodigoCliente(codcli);
   }
 
+  //Endpoint para retornar todas as assinaturas de um aplicativo pelo código dele
   /**
    * @method getAssinaturaByCodigoAplicativo
    * @param {Param} param

@@ -13,8 +13,11 @@ import { AplicativoModule } from './aplicativo.module';
 
 @Module
 ({
+  // Importa o módulo de TypeORM para fornecer a funcionalidade de persistência para a entidade Assinatura
   imports: [TypeOrmModule.forFeature([Assinatura]), AplicativoModule],
+  // Define os controladores e serviços que fazem parte do módulo
   controllers: [AssinaturaController],
+  // Define os repositórios e serviços que fazem parte do módulo
   providers: [AssinaturaRepositoryORM, AssinaturaService],
 })
 

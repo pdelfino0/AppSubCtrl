@@ -11,6 +11,7 @@ const configPath = path.resolve(__dirname, 'config.json');
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 
 @Module({
+  //Import o módulo do TypeORM para configurar a conexão com o banco de dados
   imports: [
     TypeOrmModule.forRoot({
       type: config.database.type,
@@ -22,6 +23,7 @@ const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
       synchronize: true,
       autoLoadEntities: true,
     }),
+    // Importa os módulos de Cliente, Assinatura, Aplicativo e Usuario
     ClienteModule,
     AssinaturaModule,
     AplicativoModule,

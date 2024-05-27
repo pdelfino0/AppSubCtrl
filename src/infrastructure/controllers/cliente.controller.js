@@ -17,6 +17,7 @@ export class ClienteController {
    * @method getTodosClientes
    * @returns {Promise<ClienteResponseDto[]>}
    */
+  //Endpoint para retornar todos os clientes
   @Get()
   getTodosClientes() {
     return this.clienteService.getTodosClientes();

@@ -19,6 +19,7 @@ export class AplicativoService {
    * @description Retorna todos os aplicativos
    * @returns {Promise<AplicativoResponseDto[]>}
    */
+  // Retorna todos os aplicativos
   async getTodosAplicativos() {
     return this.aplicativoRepo.getTodosAplicativos();
   }
@@ -29,10 +30,15 @@ export class AplicativoService {
    * @param {string} codigoAplicativo
    * @returns {AplicativoResponseDto} aplicativoResponseDto
    */
+  // Atualiza o custo mensal de um aplicativo
   async atualizarCustoMensal(updateCustoMensalAplicativoDto, codigoAplicativo) {
+    // Busca o aplicativo pelo código
     const aplicativo = await this.aplicativoRepo.findOneById(codigoAplicativo);
+    // Atualiza o custo mensal fixando 2 casas decimais
     aplicativo.custoMensal = parseFloat(updateCustoMensalAplicativoDto.custoMensal).toFixed(2);
+    // Atualiza o aplicativo
     const aplicativoAtualizado = await this.aplicativoRepo.atualizar(aplicativo);
+    // Retorna o aplicativo atualizado
     return new AplicativoResponseDto(aplicativoAtualizado);
   }
 
@@ -42,8 +48,11 @@ export class AplicativoService {
    * @param codigoAplicativo
    * @returns {Promise<number>}
    */
+  //Retorna o custo mensal de um aplicativo
   async getCustoMensal(codigoAplicativo) {
+    //Busca o aplicativo pelo código
     const aplicativo = await this.aplicativoRepo.findOneById(codigoAplicativo);
+    //Atualiza o custo mensal do aplicativo recém encontrado
     return aplicativo.custoMensal;
   }
 
@@ -54,8 +63,11 @@ export class AplicativoService {
    * @param valorPago
    * @returns {Promise<boolean>}
    */
+  //Verifica se o valor pago é igual ao custo mensal
   async isValorPagoEqualCustoMensal(codigoAplicativo, valorPago) {
+    //Busca o aplicativo pelo código
     const aplicativo = await this.aplicativoRepo.findOneById(codigoAplicativo);
+    //Retorna se o valor pago é igual ao custo mensal
     return parseFloat(valorPago) === parseFloat(aplicativo.custoMensal);
   }
 }
