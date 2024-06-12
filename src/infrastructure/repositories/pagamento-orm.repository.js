@@ -20,6 +20,6 @@ export class PagamentoRepositoryORM {
    * @param {Pagamento} pagamento
    */
   async registrarPagamento(pagamento) {
-    return this.pagamentos.save(pagamento);
+    return await this.pagamentos.save(pagamento);
   }
 }

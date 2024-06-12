@@ -22,8 +22,8 @@ export class PagamentoController {
   //Endpoint para registrar um pagamento
   @Post()
   @Bind(Body(), Param())
-  registrarPagamento(createPagamentoDto) {
-    return this.pagamentoService.registrarPagamento(createPagamentoDto);
+  async registrarPagamento(createPagamentoDto) {
+    return await this.pagamentoService.registrarPagamento(createPagamentoDto);
   }
 }
 

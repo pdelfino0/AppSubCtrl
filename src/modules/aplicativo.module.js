@@ -17,6 +17,7 @@ import { Aplicativo } from '../domain/entities/aplicativo.entity';
   controllers: [AplicativoController],
   // Define os repositórios e serviços que fazem parte do módulo
   providers: [AplicativoRepositoryORM, AplicativoService],
+  exports: [AplicativoService]
 })
 
 export class AplicativoModule {

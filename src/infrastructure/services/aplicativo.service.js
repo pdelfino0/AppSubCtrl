@@ -71,3 +71,5 @@ export class AplicativoService {
     return parseFloat(valorPago) === parseFloat(aplicativo.custoMensal);
   }
 }
+
+module.exports = { AplicativoService };

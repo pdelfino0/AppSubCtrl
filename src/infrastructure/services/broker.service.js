@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Dependencies, Injectable } from '@nestjs/common';
+import { CadastramentoObserver } from '../observers/cadastramento-observer.service';
 
 /**
  * @class BrokerService
@@ -7,33 +8,30 @@ import { Injectable } from '@nestjs/common';
  * @method notifyAll - Notifica todos os observadores
  * @property observers
  */
+
+@Dependencies(CadastramentoObserver)
 @Injectable()
-
 export class BrokerService {
-  #observers = [];
+  observers = [];
 
+  constructor(cadastramentoObserver) {
+    this.cadastroObserver = cadastramentoObserver;
+    this.subscribe(this.cadastroObserver);
 
-  constructor() {
-  }
-
-  /**
-   * @method subscribe
-   * @description Inscreve um observador
-   * @param observer
-   */
-  // Inscreve um observador (Adiciona um observador à lista de observadores)
-  subscribe(observer) {
-    this.#observers.push(observer);
   }
 
   /**
    * @method notifyAll
    * @description Notifica todos os observadores
-   * @param Evento
+   * @param evento
    */
-  // Notifica todos os observadores (Notifica todos os observadores de um evento,
-  //os observadores tem essa função e cada um possui a sua lógica sobre como lidar com o evento notificado
-  notifyAll(Evento) {
-    this.#observers.forEach(observer => observer.notify(Evento));
+  async notifyAll(evento) {
+    await this.observers.forEach(observer => observer.notify(evento));
+  }
+
+  subscribe(observer) {
+    this.observers.push(observer);
   }
 }
+
+module.exports = { BrokerService };

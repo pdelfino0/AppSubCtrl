@@ -82,7 +82,7 @@ export class AssinaturaRepositoryORM {
 
   // Retorna uma assinatura pelo código dela
   async getAssinaturaByCodigoAssinatura(codigo) {
-    return this.assinaturasRepository.findOneById(codigo);
+    return await this.assinaturasRepository.findOneById(codigo);
   }
 
   /**
@@ -97,9 +97,7 @@ export class AssinaturaRepositoryORM {
     if (ok.affected === 0) {
       throw new Error('Assinatura não encontrada');
     }
-    // Retorna a assinatura atualizada
-    return await this.getAssinaturaByCodigoAssinatura(assinatura.codigo);
   }
 }
 
-
+module.exports = { AssinaturaRepositoryORM };
