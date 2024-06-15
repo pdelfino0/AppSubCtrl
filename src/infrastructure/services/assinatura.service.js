@@ -156,7 +156,6 @@ export class AssinaturaService {
     const fimVigenciaAtualizada = new Date(assinatura.fimVigencia);
     //Adiciona os dias de extensão da vigência (definido na classe Assinatura)
     fimVigenciaAtualizada.setDate(fimVigenciaAtualizada.getDate() + Assinatura.EXTENSAO_VIGENCIA);
-    console.log('Vigenica atual: ', fimVigenciaAtualizada);
     assinatura.fimVigencia = formatDateToMySQL(fimVigenciaAtualizada);
 
 
@@ -169,6 +168,19 @@ export class AssinaturaService {
         console.error(`Erro ao renovar assinatura: ${e.message}`);
       },
     );
+  }
+
+  async verificarAssinaturaValidaNoService(codAssinatura) {
+    let assinatura = await this.assinaturaRepository.getAssinaturaByCodigoAssinatura(codAssinatura);
+    if (!assinatura) {
+      throw new Error('Assinatura não encontrada');
+    }
+    if (assinatura.fimVigencia < new Date()) {
+      console.log('Assinatura inválida');
+      return false
+    }
+    console.log('Assinatura válida');
+    return true;
   }
 }
 

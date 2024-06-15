@@ -1,5 +1,6 @@
 import { Dependencies, Injectable } from '@nestjs/common';
 import { CadastramentoObserver } from '../observers/cadastramento-observer.service';
+import { AssinaturasValidasObserver } from '../observers/assinaturas-validas-observer.service';
 
 /**
  * @class BrokerService
@@ -8,16 +9,22 @@ import { CadastramentoObserver } from '../observers/cadastramento-observer.servi
  * @method notifyAll - Notifica todos os observadores
  * @property observers
  */
-
-@Dependencies(CadastramentoObserver)
+@Dependencies(CadastramentoObserver, AssinaturasValidasObserver)
 @Injectable()
 export class BrokerService {
   observers = [];
 
-  constructor(cadastramentoObserver) {
+  /**
+   * @constructor
+   * @param cadastramentoObserver
+   * @param assinaturasValidasObserver
+   */
+  //Construtor já inscreve os observadores que foram injetados
+  constructor(cadastramentoObserver, assinaturasValidasObserver) {
     this.cadastroObserver = cadastramentoObserver;
+    this.assinaturasValidasObserver = assinaturasValidasObserver;
     this.subscribe(this.cadastroObserver);
-
+    this.subscribe(this.assinaturasValidasObserver);
   }
 
   /**
@@ -25,10 +32,17 @@ export class BrokerService {
    * @description Notifica todos os observadores
    * @param evento
    */
+  //Notifica todos os observadores
   async notifyAll(evento) {
     await this.observers.forEach(observer => observer.notify(evento));
   }
 
+  /**
+   * @method subscribe
+   * @description Inscreve um observador
+   * @param observer
+   */
+  //Inscreve um observador
   subscribe(observer) {
     this.observers.push(observer);
   }

@@ -7,6 +7,7 @@ import { UsuarioModule } from './modules/usuario.module';
 import * as fs from 'fs';
 import * as path from 'path';
 import { PagamentoModule } from './modules/pagamento.module';
+import { AssinaturasValidasModule } from './modules/validacao.assinaturas.module';
 
 const configPath = path.resolve(__dirname, 'config.json');
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
@@ -29,7 +30,8 @@ const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
     AssinaturaModule,
     AplicativoModule,
     UsuarioModule,
-    PagamentoModule
+    PagamentoModule,
+    AssinaturasValidasModule
   ],
 
   controllers: [],
