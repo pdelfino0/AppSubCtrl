@@ -1,0 +1,10 @@
+{
+  "database": {
+    "type": "mysql",
+    "host": "mysql",
+    "port": 3306,
+    "username": "root",
+    "password": "rootpassword",
+    "database": "AppSubCtrlDatabase"
+  }
+}
